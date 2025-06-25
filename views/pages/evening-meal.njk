@@ -1,0 +1,35 @@
+{# this easy-meal.njk page wil evetualy be the easy-measl-details.njk page, the dose nt reload the page but fetch the data in the macro and redenr the mcaro based onthe uses choice.. so i am a bit unsure waht this ap is at themoment . im using serpart page fro ui-desing- and testint the logic. but the tabComponent should be a macro that is composed  from singl macor's all the coment to add the thmarco guide.  but in the live vesrion the macro should wokr its self as the atbCompnemt that redenrer  all the contetn in the data set , by clicke on the tab title. #}
+
+{% extends "base.njk" %}
+{% import "../macros/meal-macros.njk" as mealMacros %}
+{% set meals = [
+  { name: "Baked potatoes with mince",image: "images/baked-potatoe-with-mince.jpg", overview: "Kids tend to love potatoes and minces so make this filling, low-cost meal and serve it often!", Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 400, protein: 10,shortDescription: "A classic Italian dish made with pasta and tomato sauce." },
+  { name: "Beef Stir Fry",image: "images/beef-stir-fry.jpg", overview: "A refreshing salad with grilled chicken, mixed vegetables, and a tangy dressing.",Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 350, protein: 15,shortDescription: "A refreshing salad with grilled chicken, mixed vegetables, and a tangy dressing." },
+  { name: "Veggie Stir Fry",image: "images/veggie-stir-fry.jpg",overview: "A flavorful stir-fry with vegetables and tofu.",Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 300, protein: 20,shortDescription: "A flavorful stir-fry with vegetables and tofu." },
+  { name: "beef Stir Fry",image: "images/beef-stir-fry.jpg",overview: "A savory stir-fry with beef and vegetables.",Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 300, protein: 25,shortDescription: "A savory stir-fry with beef and vegetables." },
+  { name: "Chicken Stir Fry",image: "images/chicken-stir-fry.jpg",overview: "A delicious stir-fry with chicken and vegetables.",Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 300, protein: 30,shortDescription: "A delicious stir-fry with chicken and vegetables." },
+  { name: "Danny's 'Pon De Brake!' Stir Fry",image: "images/dannys-pon-de-brake-stir-fry.jpg",overview: "A unique stir-fry with a special sauce.",Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 300/400, protein: 3/4,shortDescription: "A unique stir-fry with a special sauce." }
+] %}
+{% set tabs = [
+  { label: "Overview", href: "#overview", content: meals[0].overview },
+  { label: "Ingredients", href: "#ingredients", content: meals[0].Ingredients },
+  { label: "What to do", href: "#what-to-do", content: meals[0].wahtToDo }
+] %}
+
+{% block content %}
+<h1>Evening Mealbelloe?</h1>
+{{ mealMacros.mealCardHeroImage(meals[0]) }}
+<p style="color: red;">imagemacro-above</p>
+{# --- Navigation Tabs Macro --- #}
+
+{{ mealMacros.tabsComponentByLabelQuery(tabs) }}
+
+
+
+{# --- Footer Macro --- #}
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.njk" %}
+{% import "../macros/meal-macros.njk" as mealMacros %}
+{% import "../macros/header-macro.njk" as headerMacros %}
+{% set sectionLabel = "Meal Ideas" %}
+{% set showVegetarian = true %}
+{% set vegetarianActive = true %}
+{% set meals = [
+  { name: "Baked potatoes with mince",image: "images/baked-potatoe-with-mince-small.jpg",mealIdeas: "Evening Meal", overview: "Kids tend to love potatoes and minces so make this filling, low-cost meal and serve it often!", Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 400, protein: 10,shortDescription: "A classic Italian dish made with pasta and tomato sauce." },
+  { name: "Beef Stir Fry",image: "images/baked-potatoe-with-mince-small.jpg",mealIdeas: "Evening Meal", overview: "A refreshing salad with grilled chicken, mixed vegetables, and a tangy dressing.",Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 350, protein: 15,shortDescription: "A refreshing salad with grilled chicken, mixed vegetables, and a tangy dressing." },
+  { name: "Veggie Stir Fry",image: "images/baked-potatoe-with-mince-small.jpg",mealIdeas: "Evening Meal",overview: "A flavorful stir-fry with vegetables and tofu.",Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 300, protein: 20,shortDescription: "A flavorful stir-fry with vegetables and tofu." },
+  { name: "beef Stir Fry",image: "images/baked-potatoe-with-mince-small.jpg",mealIdeas: "Evening Meal",overview: "A savory stir-fry with beef and vegetables.",Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 300, protein: 25,shortDescription: "A savory stir-fry with beef and vegetables." },
+  { name: "Chicken Stir Fry",image: "images/baked-potatoe-with-mince-small.jpg",mealIdeas: "Evening Meal",overview: "A delicious stir-fry with chicken and vegetables.",Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 300, protein: 30,shortDescription: "A delicious stir-fry with chicken and vegetables." },
+  { name: "Danny's 'Pon De Brake!' Stir Fry",image: "images/baked-potatoe-with-mince-small.jpg",mealIdeas: "Evening Meal",overview: "A unique stir-fry with a special sauce.",Ingredients:"beef mince, potatoes, onions, garlic, tomato sauce, breadcrumbs, herbs", wahtToDo:"1. Preheat the oven to 200°C, fan 180°C, gas mark 6. 2. Prick potatoes with a fork before baking for 1 hour, or until tender. 3. Meanwhile, heat a large saucepan and add the mince, a handful at a time, cooking it until browned. 4. Add the onion and garlic, cook for 1 minute, then add the mushrooms, stock and tomato puree. Stir well until hot, then simmer, part-covered, for 20-25 minutes. 5. To serve, split the baked potatoes open and divide the filling between them. Serve with some watercress or lettuce, sliced red onion and cherry tomatoes on the side.",icon: "V", calories: 300/400, protein: 3/4,shortDescription: "A unique stir-fry with a special sauce." }
+] %}
+
+
+
+ {% set mealIdeasNavigation =[
+ {label: "breakfast", href: "breakfast" },
+ {label: "lunch", href: "lunch" },
+ {label: "evening meal", href: "evening-meals" },
+ {label: "Pudding & Snacks", href: "pudding-snacks" }
+ ] %}
+
+
+
+{% block content %}
+{{ mealMacros.mealIdeasNavigationGrid(mealIdeasNavigation) }}
+
+
+{% set randomIndex = range(0, meals.length - 1) | random %}
+{% set ideaMeal = meals[randomIndex] %}
+<h2 style="text-align: center;">Idea of the Day</h2>
+{{ mealMacros.ideaOfTheDay(ideaMeal) }}
+{% endblock %}

@@ -1,0 +1,120 @@
+/* =========================
+   Easy Meals Macro Styles
+   ========================= */
+
+/* Navigation Grids */
+.easy-meals-nav-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 2rem auto 0 auto;
+  padding: 0;
+  width: 100%;
+}
+.easy-meals-nav-box {
+  flex: 0 0 48%;
+  max-width: 48%;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  aspect-ratio: 2/1;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px 0 rgba(27, 30, 208, 0.09);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #222;
+  transition: box-shadow 0.15s, transform 0.1s;
+  padding: 1rem;
+}
+@media (min-width: 900px) {
+  .easy-meals-nav-grid {
+    max-width: 900px;
+  }
+  .easy-meals-nav-box {
+    flex: 0 0 30%;
+    max-width: 30%;
+  }
+}
+
+/* Tabs */
+.tabs-list {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  border-bottom: 2px solid #eee;
+}
+.tab-btn {
+  background: none;
+  border: none;
+  font: inherit;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.tab-btn.active, .tab-btn[aria-selected="true"] {
+  border-bottom: 2px solid #0072ce;
+  color: #0072ce;
+  font-weight: bold;
+}
+.tab-panel {
+  padding: 1em 0;
+}
+
+/* Header */
+.page-header {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 1em 0;
+}
+.back-link {
+  display: flex;
+  text-decoration: none;
+  color: #0072ce;
+  font-weight: bold;
+  flex: 1;
+  max-width: 80px;
+}
+.section-label {
+  flex: 2;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.veg-icon {
+  display: flex;
+  color: #FFD600;
+  font-weight: bold;
+  font-size: 1.2em;
+  justify-content: flex-end;
+  flex: 1;
+  max-width: 80px;
+}
+
+/* Card & Section Styles */
+.overview-section, .ingredients-section, .preparation-section, .instructions-section, .nutritional-section {
+  margin: 1.5rem auto;
+  max-width: 500px;
+  background: #f9f9f9;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.04);
+  padding: 1.5rem;
+}
+.overview-section h3,
+.ingredients-section h3,
+.preparation-section h3,
+.instructions-section h3,
+.nutritional-section h3 {
+  margin-top: 0;
+}
+
+
+/* Macro-specific comments are included above each block. */

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Macro Visualization Example{% endblock %}</title>
+  <style>
+    .base-border   { border: 4px solid #2196f3; padding: 16px; margin: 8px; }
+    .page-border   { border: 4px solid #4caf50; padding: 16px; margin: 8px; }
+    .macro-border  { border: 1px dashed #f9ab83; padding: 8px; margin: 4px; }
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+    .meal-list { max-width: 400px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
+    .meal-card { border-bottom: 1px solid #eee; padding: 1rem 0; }
+    .meal-card:last-child { border-bottom: none; }
+  </style>
+</head>
+<body>
+   {% include "includes/_nav.njk" %}
+  <div class="base-border">
+    <strong>base.njk (blue border)</strong>
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

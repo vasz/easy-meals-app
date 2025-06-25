@@ -1,0 +1,637 @@
+{% macro mealCard(meal) %}
+  <div class="macro-border">
+    <strong>mealCard macro orange border</strong>
+    <div>{{ meal.name }} - {{ meal.calories }} kcal - {{ meal.protein }}g protein</div>
+  </div>
+{% endmacro %}
+
+
+{#the  macro mealList contains or passess(?) the maco-meacard!! 
+tha was confusing me!!#}
+{% macro mealList(meals) %}
+<p>this component, passes in the mealCard macro</p>
+  <div>
+    {% for meal in meals %}
+      {{ mealCard(meal) }}
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{# macro to display meal names with for loop #}
+{% macro mealCardNames(meals) %}
+  <div class="macro-border">
+    {% for meal in meals %}
+      <div>{{ meal.name }} - {{ meal.shortDescription }}</div>
+    {% endfor %}
+  </div>
+{% endmacro %}
+{#Macro tp display the image and the name of the meal. so ned to add the image and the name of the meal.#}
+the image wiht a grey 2pix border and the title postion at the botom of the div container that hold ethe meal.name and
+style the text white wihtthe textbox background grey and the border radius to 0
+
+{#new macro for index.njk#}
+{#macro to display 6 container for each grid,imageplaceholderfor icon img tag inside link tagmeal names in a grid#}
+{% macro mealNamesGrid(meals) %}
+  <div>
+    {% for meal in meals %}
+      <div>{{ meal.name }}</div>
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{#idea of the day macro for meal ideas page 
+this macro should redner a random meal from the data for the meals array#}
+{% macro ideaOfTheDay(meal) %}
+  <div class="macro-border">
+    <img src="{{ meal.image }}" alt="{{ meal.name }}" style="width: 100%; height: auto; border: 2px solid #333;">
+    <div style="text-align: center; padding: 10px; background-color: #333; color: #fff; border-radius: 0;">{{ meal.name }}</div>
+  </div>
+{% endmacro %}
+
+{% macro mealIdeasNavigationGrid(navItems) %}
+  <div class="easy-meals-nav-grid">
+    {% for item in navItems %}
+      <a href="{{ item.href }}" class="easy-meals-nav-box">
+        {% if item.icon %}
+          <img src="{{ item.icon }}" alt="{{ item.label }} icon" style="width: 50px; height: 50px; object-fit: contain; margin-bottom: 1rem;" />
+        {% endif %}
+        <span style="font-size: 1.1rem; color: #222; font-weight: 600; text-align: center;">{{ item.label }}</span>
+      </a>
+    {% endfor %}
+  </div>
+  <style>
+    .easy-meals-nav-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 2rem auto 0 auto;
+      padding: 0;
+      width: 100%;
+    }
+    .easy-meals-nav-box {
+      flex: 0 0 48%;
+      max-width: 48%;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+      aspect-ratio: 2/1; /* GOOD-GUESS!! */
+      background: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px 0 rgba(27, 30, 208, 0.09);
+      border: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #222;
+      transition: box-shadow 0.15s, transform 0.1s;
+      padding: 1rem;
+    }
+    @media (min-width: 900px) {
+      .easy-meals-nav-grid {
+        max-width: 900px;
+      }
+      .easy-meals-nav-box {
+        flex: 0 0 30%;
+        max-width: 30%;
+      }
+    }
+  </style>
+{% endmacro %}
+
+{% macro mealCardHeroImage(meal) %}
+  <div class="macro-border" style="padding: 10px;">
+    <img src="/{{ meal.image }}" alt="{{ meal.name }}" style="width: 100%; height: auto; border: 2px solid #333;">
+    <div style="text-align: center; padding: 10px; background-color: #333; color: #fff; border-radius: 0;">{{ meal.name }}</div>
+  </div>
+{% endmacro %}
+
+{% macro mealCardNames(meals) %}
+  <div class="macro-border">
+    {% for meal in meals %}
+      <div>{{ meal.name }} - {{ meal.image }}</div>
+    {% endfor %}
+  </div>
+{% endmacro %}
+{# --- Navigation Tabs Macro --- #}
+{% macro navigationTabs(tabs) %}
+  <div class="nav-tabs-macro" style="margin: 1rem 0;">
+    <ul style="display: flex; list-style: none; padding: 0; margin: 0; border-bottom: 2px solid #ccc;">
+      {% for tab in tabs %}
+        <li style="margin-right: 1rem;">
+          <a href="{{ tab.href }}" style="text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px 6px 0 0; background: #f7f7f7; border: 1px solid #ccc; border-bottom: none; color: #333; font-size: .7rem; font-weight: bold;">
+            {{ tab.label }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}
+
+{# --- Nutrition Info Macro (Updated to Match Screenshot) --- #}
+{% macro nutritionInfo(nutrition) %}
+  <div class="nutrition-info-macro" style="border: 2px solid #BDBDBD; border-radius: 0; background: #F6F6F6; padding: 1.5rem 2rem; max-width: 350px; margin: 1rem 0; font-family: inherit; color: #fff;">
+    <h4 style="margin: 0 0 1.25rem 0; font-size: 1.1rem; font-weight: 700; background: #BDBDBD; color: #fff; letter-spacing: 0.01em; padding: 0.5rem 1rem; border-radius: 0;">Nutritional Information</h4>
+    <ul style="list-style: none; padding: 0; margin: 0;">
+      {% for item in nutrition %}
+        <li style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: {% if not loop.last %}1px solid #E0E0E0{% else %}none{% endif %}; font-size: 1rem; color: #222;">
+          <span style="color: #222; font-weight: 700;">{{ item.value }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}
+{# ask windurf to code amcro that displaya single nutritioon lables value and or the label its self #}
+{% macro nutritionLabel(label, value) %}
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: {% if not loop.last %}1px solid #E0E0E0{% else %}none{% endif %}; font-size: 1rem; color: #222;">
+    <span style="color: #222; font-weight: 500;">{{ label }}</span>
+    <span style="color: #222; font-weight: 700;">{{ value }}</span>
+  </div>
+{% endmacro %}  
+
+{% macro nutritionLabelNoStyle(label, value) %}
+  <div class="nutrition-label">
+    <span>{{ label }}</span>
+    <span>{{ value }}</span>
+  </div>
+{% endmacro %} 
+
+{% macro dietaryIconLabels(dietaryIcons) %}
+  <div class="nutrition-label">
+    <ul style="display: flex; list-style: none; padding: 0; margin: 0; gap: 0.5rem;">
+      {% for icon in dietaryIcons %}
+        <li style="font-size: 14px; font-weight: bold; background: #eee; color: #222; border-radius: 0.4em; padding: 0.2em 0.7em; display: flex; align-items: center; justify-content: center;">
+          {{ icon.value }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}
+
+{# --- Grid Meal Card Macro --- #}
+{% macro mealCardGridItem(meal) %}
+  <div class="meal-grid-card" style="width:100%;" margin="10px"; padding="10px";display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+  ;>
+    {% if meal.icon %}
+      <div class="meal-card-badge" style="display:flex;">{{ meal.icon }}</div>
+    {% endif %}
+    <img src="/{{ meal.image or 'images/placeholder.jpg' }}" alt="{{ meal.name }}" style="display:flex;flex:1;" />
+    <div class="meal-card-label">{{ meal.name or 'IDEA OF THE DAY' }}</div>
+  </div>
+<style>
+    .meal-grid-card {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 2rem auto 0 auto;
+      padding: 0;
+      width: 100%;
+    }
+    .meal-grid-card {
+      flex: 0 0 48%;
+      max-width: 48%;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+      aspect-ratio: 1/1; 
+      background: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px 0 rgba(27, 30, 208, 0.09);
+      border: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #222;
+      transition: box-shadow 0.15s, transform 0.1s;
+      padding: 1rem;
+    }
+    @media (min-width: 900px) {
+      .meal-grid-card {
+        max-width: 900px;
+      }
+      .meal-grid-card {
+        flex: 0 0 48%;
+        max-width: 48%;
+      }
+    }
+  </style>
+{% endmacro %}
+
+{# --- Splash Card Macro --- #}
+{#
+  splashCard(link)
+  Renders a simple splash grid card for the easy meals splash page.
+  Params:
+    link: { title, href, img }
+  - Uses a light grey background, rounded corners, and a subtle drop shadow.
+  - Shows image at top, title below, and links the whole card.
+  - Placeholder image if link.img is missing.
+#}
+{% macro splashCard(link) %}
+  <a href="{{ link.href }}" style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fafbfc;
+    border-radius: 1.25rem;
+    box-shadow: 0 2px 8px 0 rgba(180, 180, 180, 0.09);
+    border: 1px solid #e5e7eb;
+    padding: 1.5rem 1rem;
+    text-decoration: none;
+    transition: box-shadow 0.15s;
+    min-height: 220px;
+    min-width: 0;
+    cursor: pointer;
+  "
+    onmouseover="this.style.boxShadow='0 6px 18px 0 rgba(180,180,180,0.15)'" onmouseout="this.style.boxShadow='0 2px 8px 0 rgba(180,180,180,0.09)'"
+  >
+    <img src="{{ link.img or '/images/splash-placeholder.png' }}" alt="{{ link.title }}" style="width: 96px; height: 96px; object-fit: cover; border-radius: 50%; background: #f3f4f6; border: 1px solid #e5e7eb; margin-bottom: 1rem;" />
+    <span style="font-size: 1.1rem; color: #222; font-weight: 600; text-align: center;">{{ link.title }}</span>
+  </a>
+{% endmacro %}
+
+{% macro splashCardGridItem(link) %}
+  <div class="splash-card-grid-item">
+    <a href="{{ link.href }}" style="
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fafbfc;
+      border-radius: 1.25rem;
+      box-shadow: 0 2px 8px 0 rgba(180, 180, 180, 0.09);
+      border: 1px solid #e5e7eb;
+      padding: 1.5rem 1rem;
+      text-decoration: none;
+      transition: box-shadow 0.15s;
+      min-height: 220px;
+      min-width: 0;
+      cursor: pointer;
+    "
+      onmouseover="this.style.boxShadow='0 6px 18px 0 rgba(180,180,180,0.15)'" onmouseout="this.style.boxShadow='0 2px 8px 0 rgba(180,180,180,0.09)'"
+    >
+      <img src="{{ link.img or '/images/splash-placeholder.png' }}" alt="{{ link.title }}" style="width: 96px; height: 96px; object-fit: cover; border-radius: 50%; background: #f3f4f6; border: 1px solid #e5e7eb; margin-bottom: 1rem;" />
+      <span style="font-size: 1.1rem; color: #222; font-weight: 600; text-align: center;">{{ link.title }}</span>
+    </a>
+  </div>
+{% endmacro %}  
+
+{% macro splashCardGrid(meals) %}
+  <div class="splash-card-grid">
+    {% for meal in meals %}
+      {{ splashCardGridItem(meal) }}
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{% macro overviewCardGridItem(meal) %}
+  <div class="overview-card">
+  
+    <p>{{ meal.shortDescription }}</p>    
+    <div class="overview-card__content">  
+      <p>{{ meal.overview }}</p>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro tabHeaders(tabs, activeIndex) %}
+  <ul class="tabs" style="display: flex; list-style: none; padding: 0; margin: 0; border-bottom: 2px solid #ccc;">
+    {% for tab in tabs %}
+      <li{% if loop.index0 == activeIndex %} class="active"{% endif %} style="margin-right: 1rem;">
+        <a href="#tab{{ loop.index0 }}" style="text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px 6px 0 0; background: #f7f7f7; border: 1px solid #ccc; border-bottom: none; color: #333; font-size: .7rem; font-weight: bold;">{{ tab.label }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% macro tabContents(tabs, activeIndex) %}
+  <div class="tab-content" style="margin: 1rem 0;">
+
+{# --- Overview Macro --- #}
+{% macro overviewCardGridItem(meal) %}
+  <div class="overview-section">
+    <h3>Overview</h3>
+    <p>{{ meal.overview }}</p>
+  </div>
+{% endmacro %}
+
+{# --- Ingredients Macro --- #}
+{% macro ingredientsMacro(ingredients) %}
+  <div class="ingredients-section">
+    <h3>Ingredients</h3>
+    <ul>
+      {% for ingredient in ingredients %}
+        <li>{{ ingredient }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}
+
+{# --- Preparation Macro --- #}
+{% macro preparationMacro(preparation) %}
+  <div class="preparation-section">
+    <h3>Preparation</h3>
+    <p>{{ preparation }}</p>
+  </div>
+{% endmacro %}
+
+{# --- Instructions Macro --- #}
+{% macro instructionsMacro(instructions) %}
+  <div class="instructions-section">
+    <h3>Instructions</h3>
+    <ol>
+      {% for step in instructions %}
+        <li>{{ step }}</li>
+      {% endfor %}
+    </ol>
+  </div>
+{% endmacro %}
+
+{# --- Nutritional Info Macro --- #}
+{% macro nutritionalInfoMacro(nutritionalInfo) %}
+  <div class="nutritional-section">
+    <h3>Nutritional Information</h3>
+    <ul>
+      <li>Calories: {{ nutritionalInfo.calories }}</li>
+      <li>Protein: {{ nutritionalInfo.protein }}</li>
+      <li>Fat: {{ nutritionalInfo.fat }}</li>
+      <li>Carbs: {{ nutritionalInfo.carbs }}</li>
+      <li>Fibre: {{ nutritionalInfo.fibre }}</li>
+      <li>Salt: {{ nutritionalInfo.salt }}</li>
+    </ul>
+  </div>
+{% endmacro %}
+    {{ tabs[activeIndex].content or 'No content available.' }}
+  </div>
+{% endmacro %}
+
+{% macro tabsComponent(tabs, activeIndex=0) %}
+  <div class="tabs-component" style="margin: 1rem 0;">
+    {{ tabHeaders(tabs, activeIndex) }}
+    {{ tabContents(tabs, activeIndex) }}
+  </div>
+{% endmacro %}
+
+{# Macro: tabsComponentByLabel
+   Usage: {{ mealMacros.tabsComponentByLabel(tabs, "Ingredients") }}
+   Renders the tabsComponent with the tab matching the given label as active.
+#}
+{% macro tabsComponentByLabel(tabs, label) %}
+  {# Find the index of the tab with the given label #}
+  {% set activeIndex = 0 %}
+  {% for tab in tabs %}
+    {% if tab.label == label %}
+      {% set activeIndex = loop.index0 %}
+    {% endif %}
+  {% endfor %}
+  {{ tabsComponent(tabs, activeIndex) }}
+{% endmacro %}
+
+{# Macro: tabsComponentByIndexQuery
+   Reads ?tabIndex=1 from the query string and renders the tabbed component with that index active.
+   Usage: {{ mealMacros.tabsComponentByIndexQuery(tabs) }}
+#}
+{% macro tabsComponentByIndexQuery(tabs) %}
+  {# Get the ?tabIndex parameter from the query string using Nunjucks' built-in globals #}
+  {% set tabIndex = 0 %}
+  {% if query.tabIndex is defined %}
+    {% set tabIndex = query.tabIndex | int %}
+  {% endif %}
+  <div class="tabs-component" style="display: flex; flex-direction: column; margin: 1rem 0;">
+    <ul class="tabs" style="display: flex; list-style: none; padding: 0; margin: 0; border-bottom: 2px solid #ccc;">
+      {% for tab in tabs %}
+        <li{% if loop.index0 == tabIndex %} class="active"{% endif %} style="margin-right: 1rem;">
+          <a href="?tabIndex={{ loop.index0 }}" style="text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px 6px 0 0; background: #f7f7f7; border: 1px solid #ccc; border-bottom: none; color: #333; font-size: .7rem; font-weight: bold;">
+            {{ tab.label }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="tab-content" style="margin: 1rem 0;">
+      {{ tabs[tabIndex].content or 'No content available.' }}
+    </div>
+  </div>
+{% endmacro %}
+
+{# Macro: tabsComponentByLabelQuery
+   Reads ?tabLabel=Ingredients from the query string and renders the tabbed component with that label active.
+   Usage: {{ mealMacros.tabsComponentByLabelQuery(tabs) }}
+#}
+{% macro tabsComponentByLabelQuery(tabs) %}
+  {# Get the ?tabLabel parameter from the query string #}
+  {% set tabLabel = query.tabLabel or tabs[0].label %}
+  {# Find the index of the tab with the given label #}
+  {% set activeIndex = 0 %}
+  {% for tab in tabs %}
+    {% if tab.label == tabLabel %}
+      {% set activeIndex = loop.index0 %}
+    {% endif %}
+  {% endfor %}
+  <div class="tabs-component" style="display: flex; justify-content: center; margin: 1rem 0;">
+    <ul class="tabs" style="display: flex; flex-direction: row; justify-content: center; list-style: none; padding: 0; margin: 0; border-bottom: 2px solid #ccc;">
+      {% for tab in tabs %}
+        <li{% if tab.label == tabLabel %} class="active"{% endif %} style="display: flex; align-items: center; margin-right: 1rem;">
+          <a href="?tabLabel={{ tab.label | urlencode }}" style="text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px 6px 0 0; background: #f7f7f7; border: 1px solid #ccc; border-bottom: none; color: #333; font-size: .7rem; font-weight: bold;">
+            {{ tab.label }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="tab-content" style="margin: 1rem 0;">
+      {{ tabs[activeIndex].content or 'No content available.' }}
+    </div>
+  </div>
+{% endmacro %}
+
+{#
+  Macro: accessibleTabsComponentExample
+  Purpose: Demonstrates accessible tab markup using ARIA roles and clear comments.
+  Usage: {{ mealMacros.accessibleTabsComponentExample(tabs, "Ingredients") }}
+  - tabs: array of tab objects { label, content }
+  - activeLabel: string, the label of the tab to show as active
+  This macro is for learning and comparison. It does not include JS for keyboard navigation,
+  but shows the correct ARIA markup and comments for best practice.
+#}
+{% macro accessibleTabsComponentExample(tabs, activeLabel) %}
+  {# Find the active tab index by label #}
+  {% set activeIndex = 0 %}
+  {% for tab in tabs %}
+    {% if tab.label == activeLabel %}
+      {% set activeIndex = loop.index0 %}
+    {% endif %}
+  {% endfor %}
+  <div class="tabs-component" role="tablist" aria-label="Meal Tabs" style="margin: 1rem 0;">
+    {# Render tab titles as buttons with ARIA roles #}
+    <div style="display: flex; border-bottom: 2px solid #ccc;">
+      {% for tab in tabs %}
+        <button
+  role="tab"
+  id="tab-{{ loop.index0 }}"
+  aria-controls="tabpanel-{{ loop.index0 }}"
+  style="margin-right: 1rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px 6px 0 0; background: #f7f7f7; border: 1px solid #ccc; border-bottom: none; color: #333; font-size: .7rem; font-weight: bold; outline: none;"
+  {% if loop.index0 == activeIndex %}
+    aria-selected="true"
+    tabindex="0"
+  {% else %}
+    aria-selected="false"
+    tabindex="-1"
+  {% endif %}>
+  {{ tab.label }}
+</button>
+      {% endfor %}
+    </div>
+    {# Render only the active tab's content, with ARIA attributes #}
+    {% for tab in tabs %}
+      {% if loop.index0 == activeIndex %}
+        <div
+          id="tabpanel-{{ loop.index0 }}"
+          role="tabpanel"
+          aria-labelledby="tab-{{ loop.index0 }}"
+          tabindex="0"
+          style="margin: 1rem 0;"
+        >
+          {{ tab.content or 'No content available.' }}
+        </div>
+      {% endif %}
+    {% endfor %}
+    {#
+      Notes for learning:
+      - Each tab button uses role="tab" and is labelled by its text.
+      - aria-selected and tabindex indicate which tab is active/focusable.
+      - Each tabpanel uses role="tabpanel" and links to its tab with aria-labelledby.
+      - Only the active tabpanel is rendered for simplicity (no JS here).
+      - For full accessibility, add keyboard navigation with JavaScript (see WAI-ARIA tabs pattern).
+    #}
+  </div>
+{% endmacro %}
+
+
+  {# i want to style the tabsComponent wiht is compostion in the simplist way ,so the styles matches navigationTabs-after tyoing the cpment windsurf sugestion worked 100%!#}
+{% macro navigationTabs(tabs) %}
+  <div class="nav-tabs-macro" style="margin: 1rem 0;">
+    <ul style="display: flex; list-style: none; padding: 0; margin: 0; border-bottom: 2px solid #ccc;">
+      {% for tab in tabs %}
+        <li style="margin-right: 1rem;">
+          <a href="{{ tab.href }}" style="text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px 6px 0 0; background: #f7f7f7; border: 1px solid #ccc; border-bottom: none; color: #333; font-size: .7rem; font-weight: bold;">
+            {{ tab.label }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}
+
+{# to clarify for me and simplicity dev- name the macros with name of pageth that the macro is used onand serparet and coment here.
+#}
+{#
+  Macro: easyMealsNavigationGrid
+  Renders a grid of 6 navigation boxes (2 rows x 3 columns), each with an icon and label, matching the UI design.
+  Params:
+    navItems: array of { label, href, icon }
+  Usage:
+    {{ mealMacros.easyMealsNavigationGrid(navItems) }}
+#}
+{% macro easyMealsNavigationGrid(navItems) %}
+  <div class="easy-meals-nav-grid" style="
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 600px;
+    width: 100%;
+    margin: 2rem auto 0 auto;
+    padding: 0;
+  ">
+    {% for item in navItems %}
+      <a href="{{ item.href }}" class="easy-meals-nav-box" style="
+        flex: 0 1 48%;
+        max-width: 48%;
+        box-sizing: border-box;
+        aspect-ratio: 1/1;
+        background:rgb(255, 255, 255);
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 8px 0 rgba(27, 30, 208, 0.09);
+        border: 0px solidrgb(9, 56, 62);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #222;
+        transition: box-shadow 0.15s, transform 0.1s;
+        padding: 1rem;
+        margin: 0;
+      " onmouseover="this.style.boxShadow='0 6px 18px 0 rgba(180,180,180,0.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 2px 8px 0 rgba(180,180,180,0.09)';this.style.transform='none'">
+        <img src="{{ item.icon or '/images/placeholder.jpg' }}" alt="{{ item.label }} icon" style="width: 50px; height: 50px; object-fit: contain; margin-bottom: 1rem; background: #f3f4f6;  #e5e7eb;" />
+        <span style="font-size: 1.1rem; color: #222; font-weight: 600; text-align: center;">{{ item.label }}</span>
+      </a>
+    {% endfor %}
+  </div>
+  <style>
+    @media (min-width: 900px) {
+      .easy-meals-nav-grid {
+        max-width: 700px;
+      }
+      .easy-meals-nav-box {
+        flex: 0 1 30%;
+        max-width: 30%;
+      }
+    }
+  </style>
+{% endmacro %}
+
+
+
+
+{# Accessible Tabs Macro #}
+{% macro exampleTabsMacro(tabs, activeTab) %}
+  <div class="tabs-container">
+    <div role="tablist" aria-label="Example Tabs" class="tabs-list">
+      {% for tab in tabs %}
+        <button
+          role="tab"
+          id="tab-{{ tab.value }}"
+          aria-selected="{{ tab.value == activeTab }}"
+          aria-controls="panel-{{ tab.value }}"
+          tabindex="{{ '0' if tab.value == activeTab else '-1' }}"
+          class="tab-btn{{ ' active' if tab.value == activeTab else '' }}"
+          onclick="showTab('{{ tab.value }}')"
+          type="button"
+        >{{ tab.label }}</button>
+      {% endfor %}
+    </div>
+    {% for tab in tabs %}
+      <div
+        id="panel-{{ tab.value }}"
+        role="tabpanel"
+        aria-labelledby="tab-{{ tab.value }}"
+        class="tab-panel"
+        {% if tab.value != activeTab %}hidden{% endif %}
+      >
+        {{ tab.content }}
+      </div>
+    {% endfor %}
+  </div>
+  <style>
+    .tabs-list { display: flex; justify-content: center; gap: 1em; border-bottom: 2px solid #eee; }
+    .tab-btn { background: none; border: none; font: inherit; padding: 0.5em 1em; cursor: pointer; border-bottom: 2px solid transparent; }
+    .tab-btn.active, .tab-btn[aria-selected=\"true\"] { border-bottom: 2px solid #0072ce; color: #0072ce; font-weight: bold; }
+    .tab-panel { padding: 1em 0; }
+  </style>
+  <script>
+    function showTab(tabValue) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.id === 'tab-' + tabValue);
+        btn.setAttribute('aria-selected', btn.id === 'tab-' + tabValue);
+        btn.setAttribute('tabindex', btn.id === 'tab-' + tabValue ? '0' : '-1');
+      });
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.hidden = panel.id !== 'panel-' + tabValue;
+      });
+    }
+  </script>
+{% endmacro %}

@@ -1,0 +1,45 @@
+{# Accessible, dynamic header macro for Easy Meals App #}
+{% macro pageHeader(sectionLabel, showVegetarian, vegetarianActive) %}
+  <header class="page-header">
+    <a href="meal-ideas" class="back-link">Back</a>
+    <span class="section-label">{{ sectionLabel }}</span>
+    {% if vegetarianActive %}
+      <span class="veg-icon" title="Vegetarian Filter Active">V</span>
+    {% else %}
+      <span class="veg-icon" style="visibility: hidden;">V</span>
+    {% endif %}
+  </header>
+  <style>
+    .page-header {
+      width: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1em;
+      padding: 1em 0;
+    }
+    .back-link {
+      display: flex;
+      text-decoration: none;
+      color: #0072ce;
+      font-weight: bold;
+      flex: 1;
+      max-width: 80px;
+    }
+    .section-label {
+      flex: 2;
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .veg-icon {
+      display: flex;
+      color: #FFD600;
+      font-weight: bold;
+      font-size: 1.2em;
+      justify-content: flex-end;
+      flex: 1;
+      max-width: 80px;
+    }
+  </style>
+{% endmacro %}

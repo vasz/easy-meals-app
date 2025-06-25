@@ -1,0 +1,40 @@
+{% extends "base.njk" %}
+{% import "../macros/meal-macros.njk" as mealMacros %}
+
+{% set meals = [
+  { name: "Spaghetti", calories: 400, protein: 10 },
+  { name: "Chicken Salad", calories: 350, protein: 15 }
+] %}
+{% set nutrition = [
+  { label: "Per adult portion (i.e 1/4 recipe)", value: "" },
+  { label: "Energy", value: "1293kj / 306 kcals" },
+  { label: "Protein", value: "20.6g protein" },
+  { label: "Fat", value: "3.5 fat , of which , 1.6 saturates" },
+  { label: "Carbohydrate", value: "44.4 g carbohydrate, of which, 7.3 sugars" },
+  { label: "Fibre", value: "7.4 dietary fibre" },
+  { label: "Sodium", value: "120g sodium" },
+  { label: "Salt", value: "0.3g salt" }
+] %}  
+{% set dietaryIcons = [
+  { label: "High-Fibre", value: "H" },
+  { label: "Soft", value: "S" },
+  { label: "Vegan", value: "V" },
+  { label: "Vegetarian", value: "VT" },
+  { label: "Low-Carb", value: "LC" },
+  { label: "Low-Fat", value: "LF" }
+] %}
+
+{% block content %}
+  <div class="page-border">
+    <div>{{ mealMacros.dietaryIconLabels(dietaryIcons) }}</div>
+    <strong>page.njk (green border)</strong>
+    <div>{{ mealMacros.mealCardNames(meals) }}</div>
+    <div>{{ mealMacros.mealCard(meals[1]) }}</div>
+    <div>{{ mealMacros.nutritionInfo(nutrition) }}</div>
+    <div>{{ mealMacros.nutritionLabel("Fibre", "7.4g fibre") }}</div>
+    <div>{{ mealMacros.mealCard(meals[0]) }}</div>
+    <div>{{ mealMacros.nutritionLabelNoStyle("Fibre", "7.4g fibre") }}</div>
+    <div>{{ mealMacros.dietaryIconLabels(dietaryIcons) }}</div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.njk" %}
+{% set isSplashPage = true %}
+{% import "../macros/meal-macros.njk" as mealMacros %}
+
+
+ {%  set easyMealsNavigation = [
+  { label: "meal ideas", href: "meal-ideas" , icon: "images/mealIdeas.png"},
+  { label: "meal mixer", href: "#" , icon: "images/mealMixer.png"},
+  { label: "favourites", href: "#" , icon: "images/favourites.png"},
+  { label: "shopping-list", href: "#" , icon: "images/shopping-list.png"},
+  { label: "tips & advice", href: "#" , icon: "images/tips-advice.png"},
+  { label: "better health", href: "#" , icon: "images/better-health.png"}
+] %}
+
+{% block content %}
+{{ mealMacros.easyMealsNavigationGrid(easyMealsNavigation) }}
+<h1>index</h1>
+{% endblock %}

@@ -1,0 +1,26 @@
+{# --- Splash Page --- #}
+{% set isSplashPage = true %}
+{% extends "base.njk" %}
+{% import "../macros/meal-macros.njk" as mealMacros %}
+{% import "../macros/header-macro.njk" as headerMacros %}
+{% set meals = [
+  { name: "Spaghetti", calories: 400, protein: 10,shortDescription: "A classic Italian dish made with pasta and tomato sauce." },
+  { name: "Chicken Salad", calories: 350, protein: 15,shortDescription: "A refreshing salad with grilled chicken, mixed vegetables, and a tangy dressing." }
+] %}
+{% set dietaryIcons = [
+  { label: "High-Fibre", value: "H" },
+  { label: "Soft", value: "S" },
+  { label: "Vegan", value: "V" },
+  { label: "Vegetarian", value: "VT" },
+  { label: "Low-Carb", value: "LC" },
+  { label: "Low-Fat", value: "LF" }
+] %}
+
+{% block content %}
+    {{ headerMacros.pageHeader("Splash Page", false, false) }}
+    <h1>EasyMeals-splash-page</h1>
+
+    {{ mealMacros.mealCardNames(meals) }}
+    {{ mealMacros.dietaryIconLabels(dietaryIcons) }}
+
+{% endblock %}

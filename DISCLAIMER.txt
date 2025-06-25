@@ -1,0 +1,16 @@
+DISCLAIMER.txt
+-------------
+This project is for educational and training purposes only.
+
+The Easy Meals application interface and design are based on the NHS iPhone app.
+This implementation is created solely for personal learning and skill development.
+
+NOTICE:
+- This is not an official NHS application
+- Not for production use
+- Not affiliated with or endorsed by the NHS
+- Created for educational reverse-engineering purposes
+- All NHS branding and related materials are property of their respective owners
+
+This project demonstrates how to implement similar UI/UX patterns using Nunjucks macros
+and is not intended for distribution or commercial use.

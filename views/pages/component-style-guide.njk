@@ -1,0 +1,147 @@
+{% extends "../CSG-base.njk" %}
+{% import "../macros/meal-macros.njk" as mealMacros %}
+
+{% set meals = [
+  { name: "Spaghetti", calories: 400, protein: 10 },
+  { name: "Chicken Salad", calories: 350, protein: 15 },
+  { name: "Veggie Stir Fry", calories: 300, protein: 20 }
+] %}
+{% set tabs = [
+  { label: "Overview", href: "#overview" },
+  { label: "Ingredients", href: "#ingredients" },
+  { label: "What to do", href: "#what-to-do" }
+] %}
+{% set nutrition = [
+  { label: "Per adult portion (i.e 1/4 recipe)", value: "" },
+  { label: "Energy", value: "1293kj / 306 kcals" },
+  { label: "Protein", value: "20.6g protein" },
+  { label: "Fat", value: "3.5 fat , of which , 1.6 saturates" },
+  { label: "Carbohydrate", value: "44.4 g carbohydrate, of which, 7.3 sugars" },
+  { label: "Fibre", value: "7.4 dietary fibre" },
+  { label: "Sodium", value: "120g sodium" },
+  { label: "Salt", value: "0.3g salt" }
+] %}
+
+
+{% block content %}
+<h1>UI Macro/Component Style Guide</h1>
+
+<!-- 1. Meal Card Demo -->
+<section style="margin-bottom:2rem;">
+  <h2>Meal Card Macro</h2>
+  <p>Renders a single meal card using <code>mealCard</code> macro.</p>
+  {{ macros.mealCard(meals[0]) }}
+</section>
+
+<!-- 2. Meal List Demo -->
+<section style="margin-bottom:2rem;">
+  <h2>Meal List Macro (with Nested mealCard)</h2>
+  <p>Renders a list of meals using <code>mealList</code> macro, which calls <code>mealCard</code> for each meal.</p>
+  {{ macros.mealList(meals) }}
+</section>
+
+<!-- 3. Simple Names List -->
+<section style="margin-bottom:2rem;">
+  <h2>Meal Names List Macro</h2>
+  <p>Renders a simple list of meal names and protein using <code>mealCardNames</code> macro.</p>
+  {{ macros.mealCardNames(meals) }}
+</section>
+
+<!-- 4. Navigation Tabs Demo -->
+<section style="margin-bottom:2rem;">
+  <h2>Navigation Tabs Macro</h2>
+  <p>Renders tab navigation using <code>navigationTabs</code> macro.</p>
+  {{ macros.navigationTabs(tabs, "Overview") }}
+</section>
+
+<!-- Add more sections as you build new macros/components! -->
+
+{# --- Nutrition Info Demo Section --- #}
+{% set nutrition = [
+  { label: "Per adult portion (i.e 1/4 recipe)", value: "" },
+  { label: "Energy", value: "1293kj / 306 kcals" },
+  { label: "Protein", value: "20.6g protein" },
+  { label: "Fat", value: "3.5 fat , of which , 1.6 saturates" },
+  { label: "Carbohydrate", value: "44.4 g carbohydrate, of which, 7.3 sugars" },
+  { label: "Fibre", value: "7.4 dietary fibre" },
+  { label: "Sodium", value: "120g sodium" },
+  { label: "Salt", value: "0.3g salt" }
+] %}
+
+<section style="margin-bottom:2rem; display: flex; gap: 2rem; align-items: flex-start;">
+  <div style="flex:1;">
+    <h2>Nutrition Info Macro</h2>
+    <p>Renders nutritional information using <code>nutritionInfo</code> macro.</p>
+    {{ macros.nutritionInfo(nutrition) }}
+    <details style="margin-top:1rem;"><summary>Code Snippet</summary>
+      <pre><code>{% raw %}{{ macros.nutritionInfo(nutrition) }}{% endraw %}</code></pre>
+      <pre><code>{% raw %}{% set nutrition = [
+  { label: "Per adult portion (i.e 1/4 recipe)", value: "" },
+  { label: "Energy", value: "1293kj / 306 kcals" },
+  { label: "Protein", value: "20.6g protein" },
+  { label: "Fat", value: "3.5 fat , of which , 1.6 saturates" },
+  { label: "Carbohydrate", value: "44.4 g carbohydrate, of which, 7.3 sugars" },
+  { label: "Fibre", value: "7.4 dietary fibre" },
+  { label: "Sodium", value: "120g sodium" },
+  { label: "Salt", value: "0.3g salt" }
+] %}{% endraw %}</code></pre>
+      <pre><code>{% raw %}{% macro nutritionInfo(nutrition) %}</code></pre>
+      <pre><code>{% raw %}
+  <div class="nutrition-info-macro" style="border: 2px solid #BDBDBD; border-radius: 0; background: #F6F6F6; padding: 1.5rem 2rem; max-width: 350px; margin: 1rem 0; font-family: inherit; color: #fff;">
+    <h4 style="margin: 0 0 1.25rem 0; font-size: 1.1rem; font-weight: 700; background: #BDBDBD; color: #fff; letter-spacing: 0.01em; padding: 0.5rem 1rem; border-radius: 0;">Nutritional Information</h4>
+    <ul style="list-style: none; padding: 0; margin: 0;">
+      {% for item in nutrition %}
+        <li style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: {% if not loop.last %}1px solid #E0E0E0{% else %}none{% endif %}; font-size: 1rem; color: #222;">
+          <span style="color: #222; font-weight: 500;">{{ item.label }}</span>
+          <span style="color: #222; font-weight: 700;">{{ item.value }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %} {% endraw %}</code></pre>
+    </details>
+  </div>
+  <div style="flex:1; text-align:center;">
+    <h3>Design Reference</h3>
+    <div style="border:1px dashed #999; padding:1rem; background:#fafafa;">
+      <!-- Replace src with your uploaded screenshot for comparison -->
+      <img src="/assets/screenshot.jpg" alt="Nutrition UI Design" style="max-width: 100%; height: auto; opacity:0.7;">
+      <div style="font-size:0.9em; color:#666; margin-top:0.5rem;">Upload your screenshot to replace this placeholder.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Add nutritionLabel macro demo -->
+<section style="margin-bottom:2rem; display: flex; gap: 2rem; align-items: flex-start;">
+  <div style="flex:1;">
+    <h2>Nutrition Label Macro</h2>
+    <p>Renders a single nutrition label using <code>nutritionLabel</code> macro.</p>
+    {{ macros.nutritionLabel("Calories", "306 kcal") }}
+    <details style="margin-top:1rem;"><summary>Code Snippet</summary>
+      <pre><code>{% raw %}{{ macros.nutritionLabel("Calories", "306 kcal") }}{% endraw %}</code></pre>
+      <pre><code>{% raw %}{% macro nutritionLabel(label, value) %}</code></pre>
+      <pre><code>{% raw %}
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: {% if not loop.last %}1px solid #E0E0E0{% else %}none{% endif %}; font-size: 1rem; color: #222;">
+    <span style="color: #222; font-weight: 500;">{{ label }}</span>
+    <span style="color: #222; font-weight: 700;">{{ value }}</span>
+  </div>
+{% endmacro %} {% endraw %}</code></pre>
+    </details>
+  </div>
+  <section style="margin-bottom:2rem;">
+  <h2>Navigation Tabs Macro</h2>
+  <p>Renders tab navigation using <code>navigationTabs</code> macro.</p>
+  {{ macros.navigationTabs(tabs, "Overview") }}
+</section>
+  <div style="flex:1; text-align:center;">
+    <h3>Design Reference</h3>
+    <div style="border:1px dashed #999; padding:1rem; background:#fafafa;">
+      <!-- Replace src with your uploaded screenshot for comparison -->
+      <img src="/assets/screenshot.jpg" alt="Nutrition UI Design" style="max-width: 100%; height: auto; opacity:0.7;">
+      <div style="font-size:0.9em; color:#666; margin-top:0.5rem;">Upload your screenshot to replace this placeholder.</div>
+    </div>
+  </div>
+</section>  
+{{ mealMacros.tabsComponentByIndexQuery(tabs) }} 
+{{ mealMacros.tabsComponentByLabelQuery(tabs)}}
+{% endblock %}

@@ -1,0 +1,135 @@
+{# This macro file is for use with styles in styles.css. All inline and <style> CSS has been removed for clarity and maintainability. #}
+
+{% macro easyMealsNavigationGrid(navItems) %}
+  <div class="easy-meals-nav-grid">
+    {% for item in navItems %}
+      <a href="{{ item.href }}" class="easy-meals-nav-box">
+        {% if item.icon %}
+          <img src="{{ item.icon }}" alt="{{ item.label }} icon" width="50" height="50" style="object-fit: contain; margin-bottom: 1rem;" />
+        {% endif %}
+        <span>{{ item.label }}</span>
+      </a>
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{% macro mealIdeasNavigationGrid(navItems) %}
+  <div class="easy-meals-nav-grid">
+    {% for item in navItems %}
+      <a href="{{ item.href }}" class="easy-meals-nav-box">
+        {% if item.icon %}
+          <img src="{{ item.icon }}" alt="{{ item.label }} icon" width="50" height="50" style="object-fit: contain; margin-bottom: 1rem;" />
+        {% endif %}
+        <span>{{ item.label }}</span>
+      </a>
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{# --- Tabs Macro --- #}
+{% macro exampleTabsMacro(tabs, activeTab) %}
+  <div class="tabs-container">
+    <div role="tablist" aria-label="Example Tabs" class="tabs-list">
+      {% for tab in tabs %}
+        <button
+          role="tab"
+          id="tab-{{ tab.value }}"
+          aria-selected="{{ tab.value == activeTab }}"
+          aria-controls="panel-{{ tab.value }}"
+          tabindex="{{ '0' if tab.value == activeTab else '-1' }}"
+          class="tab-btn{{ ' active' if tab.value == activeTab else '' }}"
+          onclick="showTab('{{ tab.value }}')"
+          type="button"
+        >{{ tab.label }}</button>
+      {% endfor %}
+    </div>
+    {% for tab in tabs %}
+      <div
+        id="panel-{{ tab.value }}"
+        role="tabpanel"
+        aria-labelledby="tab-{{ tab.value }}"
+        class="tab-panel"
+        {% if tab.value != activeTab %}hidden{% endif %}
+      >
+        {{ tab.content }}
+      </div>
+    {% endfor %}
+  </div>
+  <script>
+    function showTab(tabValue) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.id === 'tab-' + tabValue);
+        btn.setAttribute('aria-selected', btn.id === 'tab-' + tabValue);
+        btn.setAttribute('tabindex', btn.id === 'tab-' + tabValue ? '0' : '-1');
+      });
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.hidden = panel.id !== 'panel-' + tabValue;
+      });
+    }
+  </script>
+{% endmacro %}
+
+{# --- Header Macro --- #}
+{% macro pageHeader(sectionLabel, showVegetarian, vegetarianActive, backHref) %}
+  <header class="page-header">
+    <a href="{{ backHref }}" class="back-link">Back</a>
+    <span class="section-label">{{ sectionLabel }}</span>
+    {% if vegetarianActive %}
+      <span class="veg-icon" title="Vegetarian Filter Active">V</span>
+    {% else %}
+      <span class="veg-icon" style="visibility: hidden;">V</span>
+    {% endif %}
+  </header>
+{% endmacro %}
+
+{# --- Card & Section Macros --- #}
+{% macro overviewCardGridItem(meal) %}
+  <div class="overview-section">
+    <h3>Overview</h3>
+    <p>{{ meal.overview }}</p>
+  </div>
+{% endmacro %}
+
+{% macro ingredientsMacro(ingredients) %}
+  <div class="ingredients-section">
+    <h3>Ingredients</h3>
+    <ul>
+      {% for ingredient in ingredients %}
+        <li>{{ ingredient }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}
+
+{% macro preparationMacro(preparation) %}
+  <div class="preparation-section">
+    <h3>Preparation</h3>
+    <p>{{ preparation }}</p>
+  </div>
+{% endmacro %}
+
+{% macro instructionsMacro(instructions) %}
+  <div class="instructions-section">
+    <h3>Instructions</h3>
+    <ol>
+      {% for step in instructions %}
+        <li>{{ step }}</li>
+      {% endfor %}
+    </ol>
+  </div>
+{% endmacro %}
+
+{% macro nutritionalInfoMacro(nutritionalInfo) %}
+  <div class="nutritional-section">
+    <h3>Nutritional Information</h3>
+    <ul>
+      <li>Calories: {{ nutritionalInfo.calories }}</li>
+      <li>Protein: {{ nutritionalInfo.protein }}</li>
+      <li>Fat: {{ nutritionalInfo.fat }}</li>
+      <li>Carbs: {{ nutritionalInfo.carbs }}</li>
+      <li>Fibre: {{ nutritionalInfo.fibre }}</li>
+      <li>Salt: {{ nutritionalInfo.salt }}</li>
+    </ul>
+  </div>
+{% endmacro %}
+

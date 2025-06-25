@@ -1,0 +1,44 @@
+{% extends "../CSG-base.njk" %}
+{% import "../macros/meal-macros.njk" as mealMacros %}
+
+{% set meals = [
+  { name: "Spaghetti", calories: 400, protein: 10 },
+  { name: "Chicken Salad", calories: 350, protein: 15 },
+  { name: "Veggie Stir Fry", calories: 300, protein: 20 }
+] %}
+
+{% block content %}
+<h2>Side-by-Side: Loop in Page vs Loop in Macro</h2>
+<div style="display: flex; gap: 2rem;">
+  <div style="flex:1; border:2px solid #2196f3; padding:1rem;">
+    <h3>Loop in Page</h3>
+    <div>
+      {% for meal in meals %}
+        {{ mealMacros.mealCard(meal) }}
+      {% endfor %}
+    </div>
+  </div>
+  <div style="flex:1; border:2px solid #4caf50; padding:1rem;">
+    <h3>Loop in Macro (mealList-component)</h3>
+    {{ mealMacros.mealList(meals) }}
+  </div>
+</div>
+<div style="border:2px solid  rgb(211, 10, 178); padding:1rem;">
+  <h3>Loop in Macro (mealCardNames-component)</h3>
+  {{ mealMacros.mealCardNames(meals) }} 
+</div>
+
+{# Demo navigation tabs #}
+{% set tabs = [
+  { label: "Overvieoow", href: "#overview" },
+  { label: "Ingredients", href: "#ingredients" },
+  { label: "What to do", href: "#what-to-do" }
+  
+] %}
+
+<div style="border:2px solid #888; padding:1rem; margin-top:2rem;">
+  <h3>Navigation Tabs Macro Demo</h3>
+  {{ mealMacros.navigationTabs(tabs) }}
+</div>
+
+{% endblock %}

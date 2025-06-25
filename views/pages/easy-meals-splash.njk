@@ -1,0 +1,50 @@
+{# Easy Meals Splash Page - Simple Data Driven Splash Grid #}
+{% set isSplashPage = true %}
+{% extends "base.njk" %}
+{% import "../macros/meal-macros.njk" as mealMacros %}
+
+{% set splashLinks = [
+  {
+    title: 'Breakfasts',
+    href: '/pages/breakfasts',
+    img: '/images/splash-breakfasts.png'
+  },
+  {
+    title: 'Lunches',
+    href: '/pages/lunches',
+    img: '/images/splash-lunches.png'
+  },
+  {
+    title: 'Evening Meals',
+    href: '/pages/evening-meals',
+    img: '/images/splash-evening-meals.png'
+  },
+  {
+    title: 'Snacks',
+    href: '/pages/snacks',
+    img: '/images/splash-snacks.png'
+  },
+  {
+    title: 'Meal Planner',
+    href: '/pages/meal-planner',
+    img: '/images/splash-meal-planner.png'
+  },
+  {
+    title: 'Shopping List',
+    href: '/pages/shopping-list',
+    img: '/images/splash-shopping-list.png'
+  }
+] %}
+
+
+
+{% block content %}
+{{ mealMacros.splashCardGrid(splashLinks) }}
+<div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 max-w-4xl w-full">
+    {% for link in splashLinks %}
+      {{ mealMacros.splashCard(link) }}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
